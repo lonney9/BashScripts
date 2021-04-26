@@ -1,6 +1,8 @@
 #!/bin/bash
 # Pings list of IP addresses from file (one per line) and logs results to a CSV file
 # Found network or hosts were blocking/evading nmap probes
+# Example command to generate IP address lists
+# nmap -sL -n 192.168.56.0/22 | awk '/Nmap scan report/{print $NF}' > ipaddress-list.txt
 
 infile="ipaddress-list.txt"
 outfile="ipaddress-results.csv"
