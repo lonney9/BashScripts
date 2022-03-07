@@ -2,7 +2,7 @@
 # Geo whitelist ipsets script, drops connections from countries NOT whitelisted #
 # Run on system boot, and schdule with cron once per day #
 # See https://www.ipdeny.com/ipblocks/ for list #
-# Should variablize country codes (line 20), file paths, ipset name, and iptables cmd to make it nice #
+# Should variablize country codes (line 20), file paths, nic interface, ipset name, and iptables cmd to make it nice #
 iptables -C INPUT -i ens3 -m set ! --match-set geoallow src -j DROP > /dev/null 2>&1
 if  [ ! "$?" = 0 ] && [ -f /etc/iptables/ipsets/geoallow.ipset ]; then
     # iptables rule missing (reboot?) and saved ipset file exists, load it.
