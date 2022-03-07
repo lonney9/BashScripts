@@ -1,7 +1,7 @@
 #!/bin/bash
 # Tor exit node ipsets blocklist #
 # Run on system boot, and schdule with cron once per day or more often #
-# Should to variablize file paths, ipset name, and iptables cmd to make it nice #
+# Should variablize file paths, ipset name, and iptables cmd to make it nice #
 iptables -C INPUT -i ens3 -m set --match-set torblock src -j DROP > /dev/null 2>&1
 if  [ ! "$?" = 0 ] && [ -f /etc/iptables/ipsets/torblock.ipset ]; then
     # iptables rule missing (reboot?) and saved ipset file exists, load it.
