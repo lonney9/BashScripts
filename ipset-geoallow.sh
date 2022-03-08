@@ -4,7 +4,7 @@
 # See https://www.ipdeny.com/ipblocks/ for list #
 # Should variablize country codes (line 20), file paths, nic interface, ipset name, and iptables cmd to make it nice. #
 iptables -C INPUT -i ens3 -m set ! --match-set geoallow src -j DROP > /dev/null 2>&1
-if  [ ! "$?" = 0 ] && [ -f /etc/iptables/ipsets/geoallow.ipset ]; then
+if [ $? -ne 0 ] && [ -f /etc/iptables/ipsets/geoallow.ipset ]; then
     # iptables rule missing (reboot?) and saved ipset file exists, load it. #
     echo "Restoring from saved ipset file"
     iptables -D INPUT -i ens3 -m set ! --match-set geoallow src -j DROP > /dev/null 2>&1
@@ -20,7 +20,7 @@ else
     for i in au ca nz us; do
         echo "${i}"
         curl -k -s -S "https://www.ipdeny.com/ipblocks/data/countries/${i}.zone" | xargs -n 1 ipset -A geoallow
-        if  [ ! "$?" = 0 ]; then
+        if [ $? -ne 0 ]; then
             # If the download fails, reload from saved ipset file and re-insert iptables rule. #
             echo "Download failed, reload last saved ipset"
             ipset -X geoallow
