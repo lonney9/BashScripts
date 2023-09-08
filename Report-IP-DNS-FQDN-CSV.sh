@@ -1,6 +1,6 @@
 #!/bin/bash
  
-# This script finds Linux hosts, and reports their IP address, FQDN hostname, and name servers.
+# This (ugly) script finds Linux hosts, and reports their IP address, FQDN hostname, and name servers.
 # Outputs results in CSV format.
 # Details:
 #  nmap is used to scan IP ranges for hosts listing on port 22, then
